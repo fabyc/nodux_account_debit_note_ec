@@ -1,0 +1,87 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:account.fiscalyear,out_debit_note_sequence:"
+msgid "Debit Note Sequence"
+msgstr "Secuencia de nota de débito"
+
+msgctxt "field:account.invoice.force_draw.start,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:account.period,out_debit_note_sequence:"
+msgid "Debit Note Sequence"
+msgstr "Secuencia de nota de débito"
+
+msgctxt "field:nodux_account_debit_note_ec.debit_note.start,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:nodux_account_plus_ec.debit_note.start,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "model:account.invoice.force_draw.start,name:"
+msgid "Invoice Force Draw"
+msgstr "Forzar factura a borrador"
+
+msgctxt "model:ir.action,name:act_invoice_out_debit_note_form"
+msgid "Nota de Debito"
+msgstr "Notas de débito"
+
+msgctxt "model:ir.action,name:debit"
+msgid "Nota de Débito"
+msgstr "Nota de débito"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_out_debit_note_domain_all"
+msgid "All"
+msgstr "Todo"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_out_debit_note_domain_draft"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_out_debit_note_domain_posted"
+msgid "Posted"
+msgstr "Contabilizado"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_out_debit_note_domain_validated"
+msgid "Validated"
+msgstr "Validado"
+
+msgctxt "model:ir.ui.menu,name:menu_invoice_out_debit_note_form"
+msgid "Nota de Debito"
+msgstr "Notas de Débito"
+
+msgctxt "model:nodux_account_debit_note_ec.debit_note.start,name:"
+msgid "Debit Note"
+msgstr "Nota de débito"
+
+msgctxt "model:nodux_account_plus_ec.debit_note.start,name:"
+msgid "Debit Note"
+msgstr "Nota de débito"
+
+msgctxt "selection:account.invoice,type:"
+msgid "Nota de Debito Cliente"
+msgstr ""
+
+msgctxt "wizard_button:nodux_account_debit_note_ec.debit_note,start,debit:"
+msgid "Debit"
+msgstr "Débito"
+
+msgctxt "wizard_button:nodux_account_debit_note_ec.debit_note,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:nodux_account_plus_ec.debit_note,start,debit:"
+msgid "Debit"
+msgstr "Débito"
+
+msgctxt "wizard_button:nodux_account_plus_ec.debit_note,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"

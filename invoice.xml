@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <!-- 
+        Agregar nota de debito al menu y generar tree (de acuerdo a los estados)     
+        -->
+        <record model="ir.action.act_window" id="act_invoice_out_debit_note_form">
+            <field name="name">Nota de Debito</field>
+            <field name="res_model">account.invoice</field>
+            <field name="domain">[('type', '=', 'out_debit_note')]</field>
+            <field name="context">{'type': 'out_debit_note'}</field>
+            <field name="search_value"></field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_invoice_out_debit_note_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account_invoice.invoice_view_tree"/>
+            <field name="act_window" ref="act_invoice_out_debit_note_form"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_invoice_out_debit_note_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="account_invoice.invoice_view_form"/>
+            <field name="act_window" ref="act_invoice_out_debit_note_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_invoice_out_debit_note_domain_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="act_window" ref="act_invoice_out_debit_note_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_invoice_out_debit_note_domain_validated">
+            <field name="name">Validated</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain">[('state', '=', 'validated')]</field>
+            <field name="act_window" ref="act_invoice_out_debit_note_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_invoice_out_debit_note_domain_posted">
+            <field name="name">Posted</field>
+            <field name="sequence" eval="30"/>
+            <field name="domain">[('state', '=', 'posted')]</field>
+            <field name="act_window" ref="act_invoice_out_debit_note_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_invoice_out_debit_note_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="domain"></field>
+            <field name="act_window" ref="act_invoice_out_debit_note_form"/>
+        </record>
+        <menuitem parent="account_invoice.menu_invoices" action="act_invoice_out_debit_note_form"
+            id="menu_invoice_out_debit_note_form" sequence="2"/>
+        <!--Agregar Generar Nota de Debito -->
+           <record model="ir.ui.view" id="debit_note_start_view_form">
+            <field name="model">nodux_account_debit_note_ec.debit_note.start</field>
+            <field name="type">form</field>
+            <field name="name">debit_start_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="debit">
+            <field name="name">Nota de Débito</field>
+            <field name="wiz_name">nodux_account_debit_note_ec.debit_note</field>
+            <field name="model">account.invoice</field>
+        </record>
+        
+        <record model="ir.action.keyword" id="debit_keyword">
+            <field name="keyword">form_action</field>
+            <field name="model">account.invoice,-1</field>
+            <field name="action" ref="debit"/>
+        </record>
+    </data>
+</tryton>
+
+
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<!--<tryton>
+    <data>
+        <record model="ir.ui.view" id="invoice_view_form">
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit" ref="account_invoice.invoice_view_form"/>
+            <field name="name">invoice_form</field>
+        </record>
+                
+         <record model="ir.model.button" id="invoice_draft_w_button">
+            <field name="name">draft_w</field>
+            <field name="model" search="[('model', '=', 'account.invoice')]"/>
+        </record>
+        <record model="ir.model.button-res.group"
+            id="invoice_draft_w_button_group_account">
+            <field name="button" ref="invoice_draft_w_button"/>
+            <field name="group" ref="account.group_account"/>
+        </record>
+
+        <record model="ir.model.button" id="invoice_validate_w_button">
+            <field name="name">validate_invoice_w</field>
+            <field name="model" search="[('model', '=', 'account.invoice')]"/>
+        </record>
+        <record model="ir.model.button-res.group"
+            id="invoice_validate_w_button_group_account">
+            <field name="button" ref="invoice_validate_w_button"/>
+            <field name="group" ref="account.group_account"/>
+        </record>
+
+        <record model="ir.model.button" id="invoice_post_w_button">
+            <field name="name">post_w</field>
+            <field name="model" search="[('model', '=', 'account.invoice')]"/>
+        </record>
+        <record model="ir.model.button-res.group"
+            id="invoice_post_w_button_group_account">
+            <field name="button" ref="invoice_post_w_button"/>
+            <field name="group" ref="account.group_account"/>
+        </record>
+    </data>
+</tryton-->
+

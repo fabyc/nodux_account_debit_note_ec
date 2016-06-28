@@ -6,10 +6,9 @@ from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
 
 __all__ = ['FiscalYear', 'Period']
-__metaclass__ = PoolMeta
-
 
 class FiscalYear:
+    __metaclass__ = PoolMeta
     __name__ = 'account.fiscalyear'
 
     out_debit_note_sequence = fields.Many2One('ir.sequence.strict',
@@ -26,7 +25,6 @@ class FiscalYear:
             'company': Eval('company'),
             },
         depends=['company'])
-        
 
     def check_invoice_sequences(self):
         for sequence in ('out_invoice_sequence', 'in_invoice_sequence',
@@ -68,8 +66,9 @@ class FiscalYear:
         super(FiscalYear, cls).write(*args)
 
 class Period:
+    __metaclass__ = PoolMeta
     __name__ = 'account.period'
-    
+
     out_debit_note_sequence = fields.Many2One('ir.sequence.strict',
         'Debit Note Sequence',
         domain=[('code', '=', 'account.invoice')],
@@ -78,7 +77,7 @@ class Period:
             'invisible': Eval('type') != 'standard',
             },
         depends=['type'])
-        
+
 
     @classmethod
     def validate(cls, periods):
@@ -150,4 +149,3 @@ class Period:
         if sequence:
             return sequence
         return getattr(self.fiscalyear, invoice_type + '_sequence')
-

@@ -24,7 +24,7 @@ msgstr "ID"
 
 msgctxt "model:account.invoice.force_draw.start,name:"
 msgid "Invoice Force Draw"
-msgstr "Forzar factura a borrador"
+msgstr "Forzar nota de débito a borrador"
 
 msgctxt "model:ir.action,name:act_invoice_out_debit_note_form"
 msgid "Nota de Debito"
@@ -32,7 +32,7 @@ msgstr "Notas de débito"
 
 msgctxt "model:ir.action,name:debit"
 msgid "Nota de Débito"
-msgstr "Nota de débito"
+msgstr "Generar nota de débito"
 
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_invoice_out_debit_note_domain_all"
@@ -68,7 +68,15 @@ msgstr "Nota de débito"
 
 msgctxt "selection:account.invoice,type:"
 msgid "Nota de Debito Cliente"
-msgstr ""
+msgstr "Nota de debito a cliente"
+
+msgctxt "view:nodux_account_debit_note_ec.debit_note.start:"
+msgid "Esta seguro de generar una nota de debito"
+msgstr "¿Está seguro de generar una nota de débito?"
+
+msgctxt "view:nodux_account_debit_note_ec.debit_note.start:"
+msgid "Nota de Débito"
+msgstr "Nota de débito"
 
 msgctxt "wizard_button:nodux_account_debit_note_ec.debit_note,start,debit:"
 msgid "Debit"

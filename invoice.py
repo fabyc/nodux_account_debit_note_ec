@@ -20,8 +20,6 @@ except:
     print("Please install it...!")
 
 __all__ = ['Invoice','DebitNoteStart','DebitNote']
-        
-__metaclass__ = PoolMeta
 
 _STATES = {
     'readonly': Eval('state') != 'draft',
@@ -33,19 +31,26 @@ _TYPE = [
 ]
 
 _TYPE2JOURNAL = {
+    'out_withholding': 'revenue',
+    'in_withholding': 'expense',
+    'anticipo':'revenue',
+    'out_invoice': 'revenue',
+    'in_invoice': 'expense',
+    'out_credit_note': 'revenue',
+    'in_credit_note': 'expense',
     'out_debit_note': 'revenue',
 }
 
 _ZERO = Decimal('0.0')
 
-    
+
 _DEBIT_TYPE = {
     'out_invoice': 'out_debit_note',
     }
 
 class Invoice:
-    'Invoice'
-    __name__ = 'account.invoice'  
+    __metaclass__ = PoolMeta
+    __name__ = 'account.invoice'
 
     @classmethod
     def __setup__(cls):
@@ -56,7 +61,7 @@ class Invoice:
         ]
         if new_sel not in cls.type.selection:
             cls.type.selection.extend(new_sel)
-            
+
     @fields.depends('type', 'party', 'company')
     def on_change_type(self):
         Journal = Pool().get('account.journal')
@@ -70,7 +75,7 @@ class Invoice:
             res['journal'] = journal.id
             res['journal.rec_name'] = journal.rec_name
         res.update(self.__get_account_payment_term())
-        return res                 
+        return res
 
     def _debit(self):
         '''
@@ -119,7 +124,7 @@ class Invoice:
 class DebitNoteStart(ModelView):
     'Debit Note'
     __name__ = 'nodux_account_debit_note_ec.debit_note.start'
-    
+
 class DebitNote(Wizard):
     'Debit Note'
     __name__ = 'nodux_account_debit_note_ec.debit_note'
@@ -130,11 +135,11 @@ class DebitNote(Wizard):
             Button('Debit', 'debit', 'tryton-ok', default=True),
             ])
     debit = StateAction('account_invoice.act_invoice_form')
-        
+
     @classmethod
     def __setup__(cls):
         super(DebitNote, cls).__setup__()
-     
+
     def do_debit(self, action):
         pool = Pool()
         Invoice = pool.get('account.invoice')
@@ -146,6 +151,5 @@ class DebitNote(Wizard):
         data = {'res_id': [i.id for i in debit_notes]}
         if len(debit_notes) == 1:
             action['views'].reverse()
-            
+
         return action, data
-        

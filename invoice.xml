@@ -3,8 +3,8 @@
 this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
-        <!-- 
-        Agregar nota de debito al menu y generar tree (de acuerdo a los estados)     
+        <!--
+        Agregar nota de debito al menu y generar tree (de acuerdo a los estados)
         -->
         <record model="ir.action.act_window" id="act_invoice_out_debit_note_form">
             <field name="name">Nota de Debito</field>
@@ -61,7 +61,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="wiz_name">nodux_account_debit_note_ec.debit_note</field>
             <field name="model">account.invoice</field>
         </record>
-        
+
         <record model="ir.action.keyword" id="debit_keyword">
             <field name="keyword">form_action</field>
             <field name="model">account.invoice,-1</field>
@@ -81,7 +81,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="inherit" ref="account_invoice.invoice_view_form"/>
             <field name="name">invoice_form</field>
         </record>
-                
+
          <record model="ir.model.button" id="invoice_draft_w_button">
             <field name="name">draft_w</field>
             <field name="model" search="[('model', '=', 'account.invoice')]"/>
@@ -113,4 +113,3 @@ this repository contains the full copyright notices and license terms. -->
         </record>
     </data>
 </tryton-->
-

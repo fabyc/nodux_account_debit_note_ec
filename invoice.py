@@ -31,13 +31,8 @@ _TYPE = [
 ]
 
 _TYPE2JOURNAL = {
-    'out_withholding': 'revenue',
-    'in_withholding': 'expense',
-    'anticipo':'revenue',
-    'out_invoice': 'revenue',
-    'in_invoice': 'expense',
-    'out_credit_note': 'revenue',
-    'in_credit_note': 'expense',
+    'out': 'revenue',
+    'in': 'expense',
     'out_debit_note': 'revenue',
 }
 
@@ -45,7 +40,7 @@ _ZERO = Decimal('0.0')
 
 
 _DEBIT_TYPE = {
-    'out_invoice': 'out_debit_note',
+    'out': 'out_debit_note',
     }
 
 class Invoice:
@@ -65,17 +60,13 @@ class Invoice:
     @fields.depends('type', 'party', 'company')
     def on_change_type(self):
         Journal = Pool().get('account.journal')
-        res = {}
         journals = Journal.search([
                 ('type', '=', _TYPE2JOURNAL.get(self.type or 'out_debit_note',
                         'revenue')),
                 ], limit=1)
         if journals:
-            journal, = journals
-            res['journal'] = journal.id
-            res['journal.rec_name'] = journal.rec_name
-        res.update(self.__get_account_payment_term())
-        return res
+            self.journal, = journals
+        self.__get_account_payment_term()
 
     def _debit(self):
         '''
@@ -84,7 +75,7 @@ class Invoice:
         res = {}
         res['type'] = _DEBIT_TYPE[self.type]
         res['number_w'] = self.number
-        res['ambiente'] = self.invoice_date
+        #res['ambiente'] = self.invoice_date
         for field in ('description', 'comment'):
             res[field] = getattr(self, field)
 
@@ -100,15 +91,15 @@ class Invoice:
         return res
 
     @classmethod
-    def debit(cls, invoices, refund=False):
+    def debit(cls, invoice, refund=False):
         '''
-        Credit invoices and return ids of new invoices.
+        Debit invoices and return ids of new invoices.
         Return the list of new invoice
         '''
         MoveLine = Pool().get('account.move.line')
 
         new_invoices = []
-        for invoice in invoices:
+        if invoice:
             new_invoice, = cls.create([invoice._debit()])
             new_invoices.append(new_invoice)
             if refund:
@@ -144,8 +135,10 @@ class DebitNote(Wizard):
         pool = Pool()
         Invoice = pool.get('account.invoice')
 
-        invoices = Invoice.browse(Transaction().context['active_ids'])
+        active_id = Transaction().context.get('active_id', False)
+        invoices = Invoice(active_id)
 
+        print "Invoices ", invoices
         debit_notes = Invoice.debit(invoices)
 
         data = {'res_id': [i.id for i in debit_notes]}
